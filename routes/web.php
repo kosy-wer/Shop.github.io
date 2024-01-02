@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('tmp.index');
-})->name('Home');
+Route::get('/Home', [ProductController::class, 'index'])->name('Home');
+
 Route::get('/About', function () {
     return view('tmp.about');
 })->name('About');
+
+
+
 Route::get('/Shop', function () {
     return view('tmp.shop');
 })->name('Shop');
+
+
 Route::get('/Contact', function () {
     return view('tmp.contact');
 })->name('Contact');
+
+Route::get('/P', function () {
+    return view('tmp.shop-single');
+})->name('Product');
 
