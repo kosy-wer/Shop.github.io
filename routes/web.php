@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\YourController;
 use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,18 @@ use App\Http\Controllers\ProductController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/get-data', function () {
+
+
+        return view('v');
+
+});
+
+
+Route::get('/get-products', [YourController::class, 'getProducts']);
+
+
 
 Route::get('/Home', [ProductController::class, 'index'])->name('Home');
 
