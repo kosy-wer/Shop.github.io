@@ -13,7 +13,7 @@ public function yourFunction(Request $request) {
 
 public function getProducts(Request $request)
     {
-        $products = Product::paginate(2); // Jumlah item per halaman: 10
+        $products = Product::paginate(3); // Jumlah item per halaman: 10
         return response()->json($products);
     }
 }
