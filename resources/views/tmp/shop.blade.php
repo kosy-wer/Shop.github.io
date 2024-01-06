@@ -22,11 +22,12 @@
                         </div>
                     </div>
                 </div>
-                <div id="Plist" class="row">
+                <div id="productList" class="row">
                 
 
 
 		</div>
+<div id="paginationLinks"></div>
                 <div div="row">
                     <ul class="pagination pagination-lg justify-content-end">
                         <li class="page-item disabled">

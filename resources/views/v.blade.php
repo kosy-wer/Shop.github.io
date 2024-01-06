@@ -3,32 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product List</title>
+    <title>Laravel jQuery Pagination</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+        #paginationLinks a {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            color: #333;
+        }
+        #paginationLinks a.active {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+    </style>
 </head>
 <body>
     <h1>Product List</h1>
-    <div>
-        <button id="sortPriceDesc">Sort Price (High to Low)</button>
-        <button id="sortPriceAsc">Sort Price (Low to High)</button>
-        <button id="sortNameAsc">Sort Name (A to Z)</button>
-        <button id="sortNameDesc">Sort Name (Z to A)</button>
-    </div>
     <ul id="productList"></ul>
+    <div id="paginationLinks"></div>
 
     <script>
         $(document).ready(function () {
-            var currentData = []; // Variabel untuk menyimpan data yang didapat dari server
-            var currentSortBy = 'Product_ID';
-            var currentSortDirection = 'asc';
-
-            function loadProducts(sortBy = 'Product_ID', sortDirection = 'asc') {
+            function loadProducts(page = 1) {
                 $.ajax({
-                    url: '/get-products',
+                    url: '/get-products?page=' + page,
                     type: 'GET',
                     success: function (response) {
-                        currentData = response.data; // Simpan data dari server ke variabel lokal
-                        displayProducts(currentData);
+                        displayProducts(response);
                     },
                     error: function (error) {
                         console.log(error);
@@ -36,52 +42,37 @@
                 });
             }
 
-            function displayProducts(products) {
+            function displayProducts(response) {
                 var productList = $('#productList');
                 productList.empty();
 
-                $.each(products, function (key, product) {
-                    productList.append('<li>' + product.Product_Name + ' - Price: ' + product.Price + '</li>'); // Sesuaikan dengan atribut yang ingin ditampilkan
-                });
-            }
-
-            function sortProducts(sortBy, sortDirection) {
-                currentSortBy = sortBy;
-                currentSortDirection = sortDirection;
-
-                // Lakukan pengurutan pada variabel lokal tanpa permintaan ke server
-                var sortedData = currentData.slice().sort(function(a, b) {
-                    if (sortBy === 'Price') {
-                        return sortDirection === 'asc' ? a.Price - b.Price : b.Price - a.Price;
-                    } else {
-                        var nameA = a.Product_Name.toUpperCase();
-                        var nameB = b.Product_Name.toUpperCase();
-                        if (sortDirection === 'asc') {
-                            return nameA.localeCompare(nameB);
-                        } else {
-                            return nameB.localeCompare(nameA);
-                        }
-                    }
+                $.each(response.data, function (key, product) {
+                    productList.append('<li>' + product.Price + '</li>'); // Sesuaikan dengan atribut yang ingin ditampilkan
                 });
 
-                displayProducts(sortedData);
+                var pagination = $('#paginationLinks');
+                pagination.empty(); // Bersihkan tautan paginasi sebelum menambah yang baru
+
+                // Tambahkan tautan paginasi
+                if (response.prev_page_url != null) {
+                    pagination.append('<a href="#" class="prev" data-page="' + (response.current_page - 1) + '">Previous</a>');
+                }
+
+                for (var i = 1; i <= response.last_page; i++) {
+                    pagination.append('<a href="#" class="page" data-page="' + i + '">' + i + '</a>');
+                }
+
+                if (response.next_page_url != null) {
+                    pagination.append('<a href="#" class="next" data-page="' + (response.current_page + 1) + '">Next</a>');
+                }
+
+                // Tautan paginasi diklik
+                pagination.find('a').on('click', function (event) {
+                    event.preventDefault();
+                    var page = $(this).data('page');
+                    loadProducts(page);
+                });
             }
-
-            $('#sortPriceDesc').on('click', function () {
-                sortProducts('Price', 'desc');
-            });
-
-            $('#sortPriceAsc').on('click', function () {
-                sortProducts('Price', 'asc');
-            });
-
-            $('#sortNameAsc').on('click', function () {
-                sortProducts('Product_Name', 'asc');
-            });
-
-            $('#sortNameDesc').on('click', function () {
-                sortProducts('Product_Name', 'desc');
-            });
 
             loadProducts();
         });
