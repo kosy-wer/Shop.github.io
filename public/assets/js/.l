@@ -83,13 +83,20 @@ $(document).ready(function () {
 
 
 
-if (response.next_page_url != null) {
-    pagination.append(`
-        <li class="page-item">
-            <a class="next page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#" data-page="${response.current_page + 1}">Next</a>
+        if (response.next_page_url != null) {
+            pagination.append(`
+
+
+<li class="page-item">
+            <a class="next rounded-0 mr-3 shadow-sm border-
+top-0 border-left-0 text-dark" href="#" data-page="' + (resp
+onse.current_page + 1) + '">next</a
+>
         </li>
-    `);
-}
+		    `);
+
+
+        }
 
         pagination.find('a').on('click', function (event) {
             event.preventDefault();

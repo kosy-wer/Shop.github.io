@@ -27,9 +27,8 @@
 
 
 		</div>
-<div id="paginationLinks"></div>
                 <div div="row">
-                    <ul class="pagination pagination-lg justify-content-end">
+                    <ul id="paginationLinks" class="pagination pagination-lg justify-content-end">
                         <li class="page-item disabled">
                             <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
                         </li>
