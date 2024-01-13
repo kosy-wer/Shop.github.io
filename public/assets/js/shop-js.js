@@ -30,18 +30,17 @@ $(document).ready(function () {
 <div class="col-md-4">
     <div class="card mb-4 product-wap rounded-0">
         <div class="card rounded-0">
-            <img class="card-img rounded-0 img-fluid" src="assets/img/shop_01.jpg">
+            <img style="height:200px;" class="card-img rounded-0 img-fluid" src="assets/img/${product.Product_Name}.webp">
             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                 <ul class="list-unstyled">
-                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                    <li><a class="btn btn-success text-white mt-2" href="Product/${product.Product_Name}" ><i class="far fa-eye"></i></a></li>
                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                 </ul>
             </div>
         </div>
         <div class="card-body">
-            <a href="shop-single.html" class="h3 text-decoration-none">${product.Price}</a>
-            <p class="text-center mb-0">$250.00</p>
+            <a  href="Product/${product.Product_Name}" class=" text-decoration-none  font-weight-bold">${product.Product_Name}</a>
+            <p  " class=" font-weight-bold  text-center mb-0">$${product.Price}</p>
         </div>
     </div>
 </div>

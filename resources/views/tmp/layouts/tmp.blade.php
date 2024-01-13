@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>                                                                                                                             <html lang="en">
 
 <head>
     <title>Zay Shop eCommerce HTML CSS Template</title>
@@ -8,7 +7,11 @@
 
     <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-
+<title>Bootstrap demo</title>                                         <link                                                                     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <link rel="stylesheet" href="assets/css/custom.css">
@@ -18,7 +21,7 @@
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
     @yield('link')
 <!--
-    
+
 TemplateMo 559 Zay Shop
 
 https://templatemo.com/tm-559-zay-shop
@@ -43,7 +46,8 @@ https://templatemo.com/tm-559-zay-shop
                 Zay
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-exp
+anded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -73,12 +77,8 @@ https://templatemo.com/tm-559-zay-shop
     </nav>
     <!-- Close Header -->
 
-
-
 	@yield('content')
-
-
-    <!-- Start Footer -->
+<!-- Start Footer -->
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
@@ -101,7 +101,7 @@ https://templatemo.com/tm-559-zay-shop
                     </ul>
                 </div>
 
-		<div class="col-md-4 pt-5">
+                <div class="col-md-4 pt-5">
     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
     <ul class="list-unstyled text-light footer-link-list">
     <li><a class="text-decoration-none" href="#">TV</a></li>
@@ -118,8 +118,7 @@ https://templatemo.com/tm-559-zay-shop
                     <ul class="list-unstyled text-light footer-link-list">
                         <li><a class="text-decoration-none" href="{{ route('Home') }}">Home</a></li>
                         <li><a class="text-decoration-none" href="{{route('About') }}">About Us</a></li>
-                        <li><a class="text-decoration-none" href="{{route( 'Shop') }}">Shop Locations</a></li>
-                        <li><a class="text-decoration-none" href="{{route( 'Contact') }}">Contact</a></li>
+                        <li><a class="text-decoration-none" href="{{route( 'Shop') }}">Shop Locations</a></li>                                                                                           <li><a class="text-decoration-none" href="{{route( 'Contact') }}">Contact</a></li>
                     </ul>
                 </div>
 
@@ -154,7 +153,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2021 Company Name 
+                            Copyright &copy; 2021 Company Name
                             | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
                         </p>
                     </div>

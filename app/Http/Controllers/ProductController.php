@@ -13,5 +13,6 @@ class ProductController extends Controller
 
         return view('tmp.index', compact('products')); // Meneruskan data ke view
     }
+
 }
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\YourController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\XController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,12 +15,10 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/get-data', function () {
-
-
-        return view('v');
-
+Route::get('/ok/yo', function () {
+    return view('tmp.shop-single');
 });
+
 
 
 Route::get('/get-products', [YourController::class, 'getProducts']);
