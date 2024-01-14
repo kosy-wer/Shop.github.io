@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\YourController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\XController;
+use App\Models\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +13,16 @@ use App\Http\Controllers\XController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
-Route::get('/ok/yo', function () {
-    return view('tmp.shop-single');
+
+Route::get('/Product/{Product_Name}', function ($productName) {
+    // Mengambil data produk berdasarkan nama atau kolom tertentu
+    $product = Product::where('Product_Name', $productName)->first();
+
+    // Mengirimkan data produk ke tampilan
+    return view('tmp.shop-single', compact('product'));
 });
-
 
 
 Route::get('/get-products', [YourController::class, 'getProducts']);

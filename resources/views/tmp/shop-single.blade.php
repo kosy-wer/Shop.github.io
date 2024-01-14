@@ -14,6 +14,8 @@
     <body>
         <div class="border-0 d-flex justify-content-center">
             <div class="d-flex justify-content-center align-items-center card border-0" style="width: 100%; height: 100%">
+@if ($product)
+
 	    <a href="{{ route('Shop') }}" class="btn text-white" style="position: absolute; top: 0; left: 0; width: 2em; font-size: 2em;">
   <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
     <image href="{{ asset('assets/img/backspace-fill.svg') }}" height="20" width="20" style="font-size: 2em;" />
@@ -26,12 +28,12 @@
                     alt="..."
                 />
                 <div class="card-body row d-flex justify-content-center align-items-center ">
-                    <p style="font-size: 3em" class="card-text">nama_product</p>
+                    <p style="font-size: 3em" class="card-text">{{ $product->Product_Name }} </p>
                     <p
                         style="font-size: 2rem; font-weight: bold"
                         class="card-text"
                     >
-                        harga_product
+                        {{ $product->Price }}
                     </p>
                     <div
                         class="input-group rounded-4"
@@ -79,6 +81,10 @@
 
 		    </div>
                 </div>
+@else
+        <p>Product not found</p>
+    @endif
+
             </div>
         </div>
         <script
