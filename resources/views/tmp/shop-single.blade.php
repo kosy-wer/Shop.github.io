@@ -23,9 +23,10 @@
 </a>
 
                 <img style="height:50%; width:80%;" 
-                    src="{{ asset('assets/img/product_single_10.jpg' ) }}"
-                    class="card-img-top border-0 "
-                    alt="..."
+                    src="{{ asset('assets/img/' . $product->Product_Name . '.webp') }}"
+
+		    class="card-img-top border-0 "
+                    alt="alt="{{ $product->Product_Name }}" "
                 />
                 <div class="card-body row d-flex justify-content-center align-items-center ">
                     <p style="font-size: 3em" class="card-text">{{ $product->Product_Name }} </p>
