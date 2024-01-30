@@ -23,14 +23,22 @@
     @csrf
               <div class="mb-4">
                 <label for="username" class="form-label">Username/Email</label>
-                <input type="text" class="form-control" id="username" name="username"  />
+                <input type="text" class="form-control" id="username" name="username"  value="{{ old('username') }}"/>
               </div>
               <div class="mb-4">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" />
               </div>
               <div class="mb-4">
-                <input type="checkbox" class="form-check-input" id="remember" />
+          @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            {{-- Menampilkan pesan kesalahan pertama kali dari semua bidang --}}
+            <li>{{ $errors->first() }}</li>
+        </ul>
+    </div>
+@endif      
+		<input type="checkbox" class="form-check-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}/>
                 <label for="remember" class="form-label">Remember Me</label>
               </div>
               <div class="d-grid">

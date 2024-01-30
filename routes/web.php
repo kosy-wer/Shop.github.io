@@ -5,6 +5,7 @@ use App\Http\Controllers\YourController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
 use App\Models\Product;
+use App\Models\Wishlist;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,7 @@ use App\Models\Product;
 |
  */
 
-
+Route::middleware('auth')->group(function () {
 Route::get('/Product/{Product_Name}', function ($productName) {
     // Mengambil data produk berdasarkan nama atau kolom tertentu
     $product = Product::where('Product_Name', $productName)->first();
@@ -24,7 +25,21 @@ Route::get('/Product/{Product_Name}', function ($productName) {
     // Mengirimkan data produk ke tampilan
     return view('tmp.shop-single', compact('product'));
 });
-Route::get('/Cart', function () {                             return view('tmp.cart');                              })->name('Cart');
+
+Route::get('/Cart', function () {
+
+	$user_id = Auth::id(); // Mengambil user_id dari pengguna yang diotentikasi
+        $wishlistData = Wishlist::where('user_id', $user_id)->get();
+
+        // Mengambil semua data produk berdasarkan Product_ID dari tabel wishlists
+        $productData = Product::whereIn('Product_ID', $wishlistData->pluck('product_id'))->get();
+
+        return view('tmp.cart', ['wishlistData' => $wishlistData, 'user_id' => $user_id, 'productData' => $productData]);
+
+
+
+});
+
 
 Route::get('/get-products', [YourController::class, 'getProducts']);
 
@@ -36,16 +51,16 @@ Route::get('/About', function () {
     return view('tmp.about');
 })->name('About');
 
-Route::get('/login', function () {                                   return view('tmp.login');
-})->name('Login');
 
-
-Route::post('/Register', [LoginController::class, 'authenticate']);
 
 
 
 Route::get('/Shop', function () {
-    return view('tmp.shop');
+	
+	
+	return view('tmp.shop');
+
+
 })->name('Shop');
 
 
@@ -57,3 +72,8 @@ Route::get('/P', function () {
     return view('tmp.shop-single');
 })->name('Product');
 
+});
+
+Route::post('/Register', [LoginController::class, 'authenticate']);
+Route::get('/login', function () {
+        return view('tmp.login');                                     })->name('login');

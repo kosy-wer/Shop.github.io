@@ -44,7 +44,7 @@
                             <h3 style="font-size:1em;" class="">{{ $product->Description }}</h3>
 <h3 class="h4">
     <span style="vertical-align: middle;">${{ $product->Price }}</span>
-    <a class="btn btn-primary" href="Shop/Product/{{ $product->Product_Name }}" role="button" style=" height: 30px; line-height: 18px; margin-bottom:10px;"><strong>Shop</strong></a>
+    <a class="btn btn-primary" href="Product/{{ $product->Product_Name }}" role="button" style=" height: 30px; line-height: 18px; margin-bottom:10px;"><strong>Shop</strong></a>
 </h3>
 
                         </div>
@@ -77,9 +77,9 @@
        <div class="row">
     @foreach($products->whereIn('Product_Name', ['Hp', 'TV', 'Ps']) as $product)
     <div class="col-12 col-md-4 p-5 mt-3">
-        <a href="#"><img src="{{ asset('assets/img/' . $product->Product_Name . '.webp' ) }}" class="rounded-circle img-fluid border" alt="{{ $product->Product_Name }}" style="width: 200px; height: 200px"></a>
+        <a href="Product/{{ $product->Product_Name }} "><img src="{{ asset('assets/img/' . $product->Product_Name . '.webp' ) }}" class="rounded-circle img-fluid border" alt="{{ $product->Product_Name }}" style="width: 200px; height: 200px"></a>
         <h5 class="text-center mt-3 mb-3">{{ $product->Product_Name }}</h5>
-        <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+        <p class="text-center"><a href="Product/{{ $product->Product_Name }} " class="btn btn-success">Go Shop</a></p>
     </div>
     @endforeach
 </div>

@@ -33,14 +33,17 @@ $(document).ready(function () {
             <img style="height:200px;" class="card-img rounded-0 img-fluid" src="assets/img/${product.Product_Name}.webp">
             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                 <ul class="list-unstyled">
-                    <li><a class="btn btn-success text-white mt-2" href="Product/${product.Product_Name}" ><i class="far fa-eye"></i></a></li>
+                    <li> <a class="btn btn-success text-white mt-2" href="Product/${product.Product_Name}" >Go</a></li>
                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
                 </ul>
             </div>
         </div>
         <div class="card-body">
-            <a  href="Product/${product.Product_Name}" class=" text-decoration-none  font-weight-bold">${product.Product_Name}</a>
-            <p  " class=" font-weight-bold  text-center mb-0">$${product.Price}</p>
+            <a  href="Product/${product.Product_Name}" class="d-block text-decoration-none">
+<strong style="font-size: 1.5em;">${product.Product_Name}</strong>
+
+	    </a>
+            <strong  style="font-size: 1.5em;margin-left:35%; "class=" font-weight-bold  text-center mb-0">$${product.Price}</strong>
         </div>
     </div>
 </div>
