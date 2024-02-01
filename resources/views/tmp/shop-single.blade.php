@@ -16,9 +16,9 @@
             <div class="d-flex justify-content-center align-items-center card border-0" style="width: 100%; height: 100%">
 @if ($product)
 
-	    <a href="{{ route('Shop') }}" class="btn text-white" style="position: absolute; top: 0; left: 0; width: 2em; font-size: 2em;">
-  <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-    <image href="{{ asset('assets/img/backspace-fill.svg') }}" height="20" width="20" style="font-size: 2em;" />
+	    <a href="{{ route('Shop') }}" class="btn text-white" style="position: absolute; top: 0; left: 0; width: 5em; font-size: 2em;">
+  <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+    <image href="{{ asset('assets/img/backspace-fill.svg') }}" height="50" width="50" style="font-size: 5em;" />
   </svg>
 </a>
 
