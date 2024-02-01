@@ -38,7 +38,7 @@ Route::get('/Cart', function () {
 
 
 
-});
+})->name('Cart');
 
 
 Route::get('/get-products', [YourController::class, 'getProducts']);

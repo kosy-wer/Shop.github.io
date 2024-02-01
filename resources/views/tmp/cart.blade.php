@@ -26,23 +26,11 @@
                 <p class="lead fw-normal mb-2">{{ $productItem->Product_Name }} </p>
               </div>
               <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=
-number]').stepDown()">
-                  <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-                    <image href="{{ asset('assets/img/dash-square.svg') }}" height="20" width="20" st
-yle="font-size: 2em;" />
-                  </svg>
-                </button>
-                <input id="form1" min="0" name="quantity" value="2" type="number" class="d-flex text-
-center form-control form-control-sm" />
-                <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=
-number]').stepUp()">
-                  <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-                    <image href="{{ asset('assets/img/plus-square.svg') }}" height="20" width="20" st
-yle="font-size: 2em;" />
-                  </svg>
-                </button>
-              </div>
+
+    <input style="height:50px;" id="form1" min="0" name="quantity" value="2" type="number" class="d-flex text-center form-control form-control-sm" />
+
+
+	      </div>
               <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" style="margin-top:5px;">
                 <h5 class="mb-0">${{ $productItem->Price}}</h5>
               </div>
