@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
         <title>Bootstrap demo</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -29,7 +31,7 @@
                     alt="alt="{{ $product->Product_Name }}" "
                 />
                 <div class="card-body row d-flex justify-content-center align-items-center ">
-                    <p style="font-size: 3em" class="card-text">{{ $product->Product_Name }} </p>
+                    <p id="product"  style="font-size: 3em" class="card-text">{{ $product->Product_Name }} </p>
                     <p
                         style="font-size: 2rem; font-weight: bold"
                         class="card-text"
@@ -74,7 +76,7 @@
     </svg>
 </button>
 
-<button style="width: 2.5em; font-size: 2em" class="btn btn-outline-secondary bg-success text-white" type="button" id="add">
+<button style="width: 2.5em; font-size: 2em" class="btn btn-outline-secondary bg-success text-white" type="button" id="addToWishlist">
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
         <image href="{{ asset('assets/img/cart-plus.svg') }}" height="20" width="20" style="font-size: 2em;" />
     </svg>
@@ -94,6 +96,46 @@
             crossorigin="anonymous"
         ></script>
         <script>
+
+
+	   document.getElementById('addToWishlist').addEventListener('click', function() {
+  // Dapatkan nilai atau data yang diperlukan dari elemen atau tempat yang sesuai.
+  let productId = document.getElementById('product').innerText;
+
+alert(productId);
+
+  //Kirim data ke endpoint di Laravel menggunakan fetch atau metode lainnya.
+  fetch('/api/add-to-wishlist', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    },
+    body: JSON.stringify({
+      product_id: productId,
+    }),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Tanggapan dari endpoint
+    console.log(data);
+    // Lakukan hal lain setelah mendapatkan tanggapan
+  })
+  .catch(error => {
+    console.log('There has been a problem with your fetch operation: ' + error);
+  });
+
+
+});
+
+
+
+
             let quantityInput = document.getElementById("quantity");
             let addButton = document.getElementById("add");
             let subtractButton = document.getElementById("subtract");
