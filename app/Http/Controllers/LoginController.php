@@ -30,7 +30,10 @@ class LoginController extends Controller
 
     if (Hash::check($credentials['password'], $user->password)) {
     Auth::login($user, $remember);
-    return redirect()->intended('Home');
+
+    $token = $user->createToken('token-name')->plainTextToken;
+
+    return response()->json(['token' => $token]);
 } else {
     return back()
         ->withErrors(['password' => 'Password is incorrect'])
