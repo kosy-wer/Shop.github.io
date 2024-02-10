@@ -16,7 +16,7 @@ use App\Http\Controllers\WishlistController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // Semua rute dalam grup ini akan menggunakan middleware 'auth:sanctum'
-    Route::post('/add-to-wishlist', [WishlistController::class, 'addToWishlist']);
+    Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist']);
 
     Route::get('/user', function (Request $request) {
         return $request->user();

@@ -98,30 +98,41 @@
             crossorigin="anonymous"
         ></script>
         <script>
+
+
+
 $(document).ready(function() {
-    // Retrieve the token from localStorage
-    var token = localStorage.getItem('token');
+    // When the element with ID addToWishlist is clicked
+    $('#addToWishlist').click(function(e) {
+        // Prevent the default form submission behavior
+        e.preventDefault();
 
-    // Display the token
-    console.log("Token: " + token);
+        // Retrieve the token from localStorage
+        var token = localStorage.getItem('token');
 
-    // Make an HTTP request using the token
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8000/api/user",
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + token,
-        },
-        success: function(response) {
-            // Display the JSON response
-            console.log(response);
-        },
-        error: function(error) {
-            console.error(error);
-        }
+        // Display the token
+        console.log("Token: " + token);
+
+        // Make an HTTP request using the token
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8000/api/add-to-wishlist/" + encodeURIComponent('{{ $product->Product_ID}}'),
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            },
+            success: function(response) {
+                // Display the JSON response
+                console.log(response.message);
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
     });
 });
+
+
 
 
             let quantityInput = document.getElementById("quantity");
