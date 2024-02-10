@@ -32,14 +32,6 @@
               </div>
 
               <div class="mb-4 d-flex align-items-center justify-content-between">
-                @if ($errors->any())
-                  <div class="alert alert-danger">
-                    <ul>
-                      {{-- Menampilkan pesan kesalahan pertama kali dari semua bidang --}}
-                      <li>{{ $errors->first() }}</li>
-                    </ul>
-                  </div>
-                @endif
 
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}/>
@@ -55,7 +47,10 @@
     </div>
   </div>
 
-  
+  <div style="z-index:1;position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%); " id="error-container"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <!-- Add jQuery -->
@@ -64,6 +59,25 @@
 
 <script>
   $(document).ready(function() {
+
+
+  function displayErrors(errors) {
+      var errorList = '<ul>';
+      $.each(errors, function(index, error) {
+        errorList += '<li>' + error + '</li>';
+      });
+      errorList += '</ul>';
+
+      var errorMessage = '<div class="alert alert-danger">' + errorList + '</div>';
+      $('#error-container').html(errorMessage);
+      setTimeout(function() {
+        $('#error-container').fadeOut('slow', function() {
+          $(this).remove();
+        });
+      }, 1500);
+    }
+
+
     $("#login").click(function(e) {
       e.preventDefault();
 
@@ -84,11 +98,13 @@
         },
         success: function(response) {
           // Handle successful login response
-          console.log(response);
+	  localStorage.setItem('token', response.token);
         },
         error: function(error) {
           // Handle login error
-          console.log(error);
+	  if (error.responseJSON && error.responseJSON.errors) {
+            displayErrors(error.responseJSON.errors);
+          }
         }
       });
     });

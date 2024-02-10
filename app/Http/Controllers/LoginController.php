@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 class LoginController extends Controller
 {
 
@@ -31,7 +32,15 @@ class LoginController extends Controller
     if (Hash::check($credentials['password'], $user->password)) {
     Auth::login($user, $remember);
 
-    $token = $user->createToken('token-name')->plainTextToken;
+
+    $token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
+
+
+    $tokens = PersonalAccessToken::where('tokenable_type', get_class($user))
+                ->where('tokenable_id', $user->id)
+                ->get();
+
+
 
     return response()->json(['token' => $token]);
 } else {
