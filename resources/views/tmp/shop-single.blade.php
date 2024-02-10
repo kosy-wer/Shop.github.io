@@ -12,6 +12,8 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+	    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     </head>
     <body>
         <div class="border-0 d-flex justify-content-center">
@@ -96,44 +98,30 @@
             crossorigin="anonymous"
         ></script>
         <script>
+$(document).ready(function() {
+    // Retrieve the token from localStorage
+    var token = localStorage.getItem('token');
 
+    // Display the token
+    console.log("Token: " + token);
 
-	   document.getElementById('addToWishlist').addEventListener('click', function() {
-  // Dapatkan nilai atau data yang diperlukan dari elemen atau tempat yang sesuai.
-  let productId = document.getElementById('product').innerText;
-
-alert(productId);
-
-  //Kirim data ke endpoint di Laravel menggunakan fetch atau metode lainnya.
-  fetch('/api/add-to-wishlist', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    },
-    body: JSON.stringify({
-      product_id: productId,
-    }),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Tanggapan dari endpoint
-    console.log(data);
-    // Lakukan hal lain setelah mendapatkan tanggapan
-  })
-  .catch(error => {
-    console.log('There has been a problem with your fetch operation: ' + error);
-  });
-
-
+    // Make an HTTP request using the token
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8000/api/user",
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        },
+        success: function(response) {
+            // Display the JSON response
+            console.log(response);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
 });
-
-
 
 
             let quantityInput = document.getElementById("quantity");

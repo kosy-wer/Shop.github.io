@@ -35,7 +35,8 @@ class LoginController extends Controller
 
 	if (!$hasTokens) {
 	
-    $token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
+		$token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
+		return response()->json(['token' => $token]);
 	
 	} 
 } else {
