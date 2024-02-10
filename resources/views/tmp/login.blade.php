@@ -98,10 +98,12 @@
         },
         success: function(response) {
           // Handle successful login response
+          console.log(response);
 	  localStorage.setItem('token', response.token);
         },
         error: function(error) {
           // Handle login error
+          console.log(error);
 	  if (error.responseJSON && error.responseJSON.errors) {
             displayErrors(error.responseJSON.errors);
           }

@@ -31,18 +31,22 @@ class LoginController extends Controller
 
     if (Hash::check($credentials['password'], $user->password)) {
     Auth::login($user, $remember);
+    $hasTokens = $user->tokens()->exists();
 
-
+	if ($hasTokens) {
+                // User has tokens
+                return response()->json(['token' => 'User has tokens']);
+            } else {
     $token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
+                // User doesn't have tokens
+                return response()->json(['token' => 'User does not have tokens']);
+            }
 
 
-    $tokens = PersonalAccessToken::where('tokenable_type', get_class($user))
-                ->where('tokenable_id', $user->id)
-                ->get();
 
 
 
-    return response()->json(['token' => $token]);
+
 } else {
     return back()
         ->withErrors(['password' => 'Password is incorrect'])
