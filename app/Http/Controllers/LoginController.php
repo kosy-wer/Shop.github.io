@@ -33,20 +33,11 @@ class LoginController extends Controller
     Auth::login($user, $remember);
     $hasTokens = $user->tokens()->exists();
 
-	if ($hasTokens) {
-                // User has tokens
-                return response()->json(['token' => 'User has tokens']);
-            } else {
+	if (!$hasTokens) {
+	
     $token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
-                // User doesn't have tokens
-                return response()->json(['token' => 'User does not have tokens']);
-            }
-
-
-
-
-
-
+	
+	} 
 } else {
     return back()
         ->withErrors(['password' => 'Password is incorrect'])

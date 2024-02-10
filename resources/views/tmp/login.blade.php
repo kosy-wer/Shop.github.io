@@ -100,6 +100,7 @@
           // Handle successful login response
           console.log(response);
 	  localStorage.setItem('token', response.token);
+        window.location.href = "/Home";
         },
         error: function(error) {
           // Handle login error
@@ -112,7 +113,6 @@
     });
   });
 </script>
-
 
 
 </body>
