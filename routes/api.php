@@ -12,11 +12,14 @@ use App\Http\Controllers\WishlistController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
+ */
 
-// routes/web.php atau routes/api.php
-Route::post('/add-to-wishlist', [WishlistController::class, 'addToWishlist'])->middleware('auth');
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Semua rute dalam grup ini akan menggunakan middleware 'auth:sanctum'
+    Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
 });

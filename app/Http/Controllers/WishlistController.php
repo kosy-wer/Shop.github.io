@@ -5,27 +5,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Wishlist;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 class WishlistController extends Controller
 {
-    public function addToWishlist(Request $request)
+    public function addToWishlist($name_product )
     {
-        // Validasi data yang diterima dari request
-        $request->validate([
-            'product_id' => 'required|integer',
-        ]);
+    
 
-        // Buat wishlist baru
-        $wishlist = new Wishlist([
-            'user_id' => auth()->id(), // Anda dapat mengganti ini dengan cara yang sesuai untuk mendapatkan user_id
-            'product_id' => $request->input('product_id'),
-        ]);
+        $user_id = Auth::id();
 
-        // Simpan ke database
-        $wishlist->save();
+        // Menyimpan data ke dalam Wishlist
+        Wishlist::create([
+            'user_id' => $user_id,
+            'product_id' => $name_product, // Disesuaikan sesuai kebutuhan Anda
+	    'created_at' => Carbon::now(), // Menggunakan Carbon untuk mendapatkan waktu saat ini
+	]);
 
-        // Beri respons sesuai kebutuhan (contoh respons JSON)
         return response()->json(['message' => 'Product added to wishlist successfully']);
+
+    
     }
 }
 
