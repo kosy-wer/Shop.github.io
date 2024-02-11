@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\YourController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 use App\Models\Product;
 use App\Models\Wishlist;
 /*
@@ -16,6 +17,13 @@ use App\Models\Wishlist;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
+
+
+
+Route::get('/', [HomeController::class, 'show']);
+Route::post('/', [HomeController::class, 'storePhoneNumber']);
+Route::post('/custom', [HomeController::class, 'sendCustomMessage']); 
+
 
 Route::middleware('auth')->group(function () {
 Route::get('/Product/{Product_Name}', function ($productName) {
