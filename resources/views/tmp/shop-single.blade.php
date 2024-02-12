@@ -72,7 +72,7 @@
                         style="margin-top: 5%; width: 80%"
                         class="d-flex justify-content-between"
                     >
-                    <button style="width: 2.5em; font-size: 2em" class="btn btn-outline-secondary bg-success text-white" type="button" id="subtract">
+                    <button style="width: 2.5em; font-size: 2em" class="btn btn-outline-secondary bg-success text-white" type="button" id="buy">
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
         <image href="{{ asset('assets/img/money-bill-wave-solid.svg') }}" height="20" width="20" style="font-size: 2em;" />
     </svg>
@@ -102,33 +102,38 @@
 
 
 $(document).ready(function() {
-    // When the element with ID addToWishlist is clicked
-    $('#addToWishlist').click(function(e) {
-        // Prevent the default form submission behavior
-        e.preventDefault();
-
-        // Retrieve the token from localStorage
-        var token = localStorage.getItem('token');
-
-        // Display the token
-        console.log("Token: " + token);
+    const makeAjaxRequest = (url, successMessage, errorMessage) => {
+        const token = localStorage.getItem('token');
+        const productId = encodeURIComponent('{{ $product->Product_ID }}');
 
         // Make an HTTP request using the token
         $.ajax({
-            type: "POST",
-            url: "http://localhost:8000/api/add-to-wishlist/" + encodeURIComponent('{{ $product->Product_ID}}'),
+            type: 'POST',
+            url: `http://localhost:8000/api/${url}/${productId}`,
             headers: {
                 'Accept': 'application/json',
-                'Authorization': 'Bearer ' + token,
+                'Authorization': `Bearer ${token}`,
             },
             success: function(response) {
-                // Display the JSON response
-                console.log(response.message);
+                alert(response.message || successMessage);
             },
             error: function(error) {
                 console.error(error);
-            }
+                alert(errorMessage);
+            },
         });
+    };
+
+    // When the element with ID addToWishlist is clicked
+    $('#addToWishlist').click(function(e) {
+        e.preventDefault();
+        makeAjaxRequest('add-to-wishlist', 'Added to wishlist successfully', 'Error adding to wishlist. Please try again.');
+    });
+
+    // When the element with ID buy is clicked
+    $('#buy').click(function(e) {
+        e.preventDefault();
+        makeAjaxRequest('buy', 'Product purchased successfully', 'Error purchasing product. Please try again.');
     });
 });
 
