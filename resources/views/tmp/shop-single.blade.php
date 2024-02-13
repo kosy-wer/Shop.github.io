@@ -104,7 +104,7 @@
 $(document).ready(function() {
     const makeAjaxRequest = (url, successMessage, errorMessage) => {
         const token = localStorage.getItem('token');
-        const productId = encodeURIComponent('{{ $product->Product_ID }}');
+        const productId = encodeURIComponent('{{ $product->Product_Name }}');
 
         // Make an HTTP request using the token
         $.ajax({

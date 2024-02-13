@@ -9,14 +9,14 @@ use Carbon\Carbon;
 
 class WishlistController extends Controller
 {
-    public function addToWishlist($product_id)
+    public function addToWishlist($product_name)
     {
         // Mendapatkan user yang terotentikasi
         $user_id = Auth::ID();
 
         // Pemeriksaan apakah kombinasi product_id dan user_id sudah ada
         $existingWishlistItem = Wishlist::where('user_id', $user_id)
-            ->where('product_id', $product_id)
+            ->where('product_name', $product_name)
             ->first();
 
         if ($existingWishlistItem) {
@@ -27,7 +27,7 @@ class WishlistController extends Controller
         // Jika belum ada, simpan ke dalam Wishlist dengan mencantumkan nilai 'created_at'
         Wishlist::create([
             'user_id' => $user_id,
-            'product_id' => $product_id,
+            'product_name' => $product_name,
             'created_at' => Carbon::now(),
             // tambahkan kolom lainnya sesuai kebutuhan
         ]);

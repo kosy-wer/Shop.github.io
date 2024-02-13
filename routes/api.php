@@ -48,7 +48,7 @@ print($message->sid);
     });
 
     // Semua rute dalam grup ini akan menggunakan middleware 'auth:sanctum'
-    Route::post('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist']);
+    Route::post('/add-to-wishlist/{product_name}', [WishlistController::class, 'addToWishlist']);
 
     Route::get('/user', function (Request $request) {
         return $request->user();
