@@ -35,17 +35,11 @@ Route::get('/Product/{Product_Name}', function ($productName) {
 });
 
 Route::get('/Cart', function () {
+    $user_id = Auth::id();
+    $wishlistData = Wishlist::where('user_id', $user_id)->get();
+    $productData = Product::whereIn('Product_Name', $wishlistData->pluck('product_name'))->get();
 
-	$user_id = Auth::id(); // Mengambil user_id dari pengguna yang diotentikasi
-        $wishlistData = Wishlist::where('user_id', $user_id)->get();
-
-        // Mengambil semua data produk berdasarkan Product_ID dari tabel wishlists
-        $productData = Product::whereIn('Product_ID', $wishlistData->pluck('product_id'))->get();
-
-        return view('tmp.cart', ['wishlistData' => $wishlistData, 'user_id' => $user_id, 'productData' => $productData]);
-
-
-dd($productData);
+    return view('tmp.cart', ['wishlistData' => $wishlistData, 'user_id' => $user_id, 'productData' => $productData]);
 })->name('Cart');
 
 

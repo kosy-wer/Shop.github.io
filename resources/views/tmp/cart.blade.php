@@ -14,31 +14,27 @@
           <div class="card-body p-4">
             <div class="row d-flex justify-content-between align-items-center">
             
-		@if ($productData->isEmpty())
-          <p>No wishlist data found for this user.</p>
-        @else
-            @foreach ($productData as $productItem )
-              <div class="col-md-2 col-lg-2 col-xl-2">
-    <img style="height:100px; width:100px;" src="{{ asset('assets/img/' . $productItem->Product_Name . '.webp') }}" alt="{{ $productItem->Product_Name }}" class="img-fluid rounded-3" >
-</div>
 
-	      <div class="col-md-3 col-lg-3 col-xl-3">
-                <p class="lead fw-normal mb-2">{{ $productItem->Product_Name }} </p>
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-
-    <input style="height:50px;" id="form1" min="0" name="quantity" value="2" type="number" class="d-flex text-center form-control form-control-sm" />
-
-
-	      </div>
-              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" style="margin-top:5px;">
-                <h5 class="mb-0">${{ $productItem->Price}}</h5>
-              </div>
-
+	@if ($productData->isEmpty())
+    <p>No wishlist data found for this user.</p>
+@else
+    @foreach ($productData as $productItem)
+        <div class="col-md-2 col-lg-2 col-xl-2">
+            <img style="height:100px; width:100px;" src="{{ asset('assets/img/' . $productItem->Product_Name . '.webp') }}" alt="{{ $productItem->Product_Name }}" class="img-fluid rounded-3">
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3">
+            <p class="lead fw-normal mb-2">{{ $productItem->Product_Name }} </p>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+            <input style="height:50px;" id="form{{ $productItem->Product_ID }}" min="0" name="quantity" value="2" type="number" class="d-flex text-center form-control form-control-sm" />
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" style="margin-top:5px;">
+            <h5 class="mb-0">${{ $productItem->Price }}</h5>
+        </div>
+    @endforeach
+@endif
 
 
-	    @endforeach
-        @endif
 
 	    </div>
           </div>
