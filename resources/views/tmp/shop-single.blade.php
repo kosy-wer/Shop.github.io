@@ -133,7 +133,9 @@ $(document).ready(function() {
     // When the element with ID buy is clicked
     $('#buy').click(function(e) {
         e.preventDefault();
-        makeAjaxRequest('buy', 'Product purchased successfully', 'Error purchasing product. Please try again.');
+
+            let quantity = document.getElementById("quantity").value;
+        makeAjaxRequest(`buy/${quantity}`, 'Product purchased successfully', 'Error purchasing product. Please try again.');
     });
 });
 

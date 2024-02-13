@@ -19,13 +19,13 @@ use App\Models\Product;
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::post('/buy/{msg}', function ($msg) {
+    Route::post('/buy/{stock}/{msg}', function ($stock,$msg) {
 
 
 $sid    = "ACd4fc4b9fbf52cd8223c9d32957770f11";
-$token  = "d7d593080632eefd589dc6f941a64508";
+$token  = "23676e9b749e519981a05bdf43ed9dad";
 $twilio = new Client($sid, $token);
-$product = Product::where('Product_ID', $msg)->first();
+$product = Product::where('Product_Name', $msg)->first();
 $product_name = $product->Product_Name;
 
 $message = $twilio->messages
@@ -33,7 +33,7 @@ $message = $twilio->messages
 
     	[
     "from" => "whatsapp:+14155238886",
-    "body" => "Nama Produk: $product_name\nJumlah Barang: $msg"
+    "body" => "Nama Produk: $product_name\nJumlah Barang: $stock"
 ]
 
 
