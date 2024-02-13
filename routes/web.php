@@ -45,7 +45,7 @@ Route::get('/Cart', function () {
         return view('tmp.cart', ['wishlistData' => $wishlistData, 'user_id' => $user_id, 'productData' => $productData]);
 
 
-
+dd($productData);
 })->name('Cart');
 
 

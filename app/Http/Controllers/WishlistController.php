@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class WishlistController extends Controller
 {
-    public function addToWishlist($product_name)
+    public function addToWishlist(Request $request,$product_name)
     {
         // Mendapatkan user yang terotentikasi
         $user_id = Auth::ID();
@@ -21,8 +21,9 @@ class WishlistController extends Controller
 
         if ($existingWishlistItem) {
             // Jika sudah ada, beri respon sesuai kebutuhan Anda
-            return response()->json(['message' => 'Product already in wishlist']);
-        }
+	return response()->json(['message' => "Product already in wishlist ${product_name}"]);
+
+	}
 
         // Jika belum ada, simpan ke dalam Wishlist dengan mencantumkan nilai 'created_at'
         Wishlist::create([

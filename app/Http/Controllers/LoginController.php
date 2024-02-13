@@ -31,15 +31,19 @@ class LoginController extends Controller
 
     if (Hash::check($credentials['password'], $user->password)) {
     Auth::login($user, $remember);
-    $hasTokens = $user->tokens()->exists();
+    $existingToken = $user->tokens()->where('expires_at', '>', now())->first();
 
-	if (!$hasTokens) {
-	
-		$token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
-		return response()->json(['token' => $token]);
-	
-	} 
+if (!$existingToken) {
+    // Jika tidak ada token yang masih berlaku, buat token baru
+    $token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
+    return response()->json(['token' => $token]);
 } else {
+    // Token masih berlaku, Anda dapat melakukan tindakan lain jika diperlukan
+    return response()->json(['message' => 'User already has a valid token']);
+}
+
+    
+    } else {
     return back()
         ->withErrors(['password' => 'Password is incorrect'])
         ->withInput(['username' => $credentials['username'], 'remember' => $remember]);

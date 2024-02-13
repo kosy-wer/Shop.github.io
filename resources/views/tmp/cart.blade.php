@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -14,7 +14,7 @@
           <div class="card-body p-4">
             <div class="row d-flex justify-content-between align-items-center">
             
-		@if ($wishlistData->isEmpty())
+		@if ($productData->isEmpty())
           <p>No wishlist data found for this user.</p>
         @else
             @foreach ($productData as $productItem )

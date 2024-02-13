@@ -104,12 +104,12 @@
 $(document).ready(function() {
     const makeAjaxRequest = (url, successMessage, errorMessage) => {
         const token = localStorage.getItem('token');
-        const productId = encodeURIComponent('{{ $product->Product_Name }}');
+        const productName = encodeURIComponent('{{ $product->Product_Name }}');
 
         // Make an HTTP request using the token
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/${url}/${productId}`,
+            url: `http://localhost:8000/api/${url}/${productName}`,
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`,
