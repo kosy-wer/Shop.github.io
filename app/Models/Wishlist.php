@@ -26,7 +26,7 @@ class Wishlist extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'product_name', 'created_at', 'updated_at'
+'user_id', 'product_name', 'created_at', 'updated_at','quantity'
     ];
 
     // Tambahan: Jika ingin menonaktifkan timestamps (created_at dan updated_at)

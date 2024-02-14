@@ -19,13 +19,14 @@ use App\Models\Product;
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::post('/buy/{stock}/{msg}', function ($stock,$msg) {
-
-
+    Route::post('/buy', function (Request $request) {
+	    
+$productName = $request->input('product_name');
+$quantity = $request->input('quantity');
 $sid    = "ACd4fc4b9fbf52cd8223c9d32957770f11";
 $token  = "23676e9b749e519981a05bdf43ed9dad";
 $twilio = new Client($sid, $token);
-$product = Product::where('Product_Name', $msg)->first();
+$product = Product::where('Product_Name', $productName)->first();
 $product_name = $product->Product_Name;
 
 $message = $twilio->messages
@@ -33,7 +34,7 @@ $message = $twilio->messages
 
     	[
     "from" => "whatsapp:+14155238886",
-    "body" => "Nama Produk: $product_name\nJumlah Barang: $stock"
+    "body" => "Nama Produk: $product_name\nJumlah Barang: $quantity"
 ]
 
 
@@ -48,7 +49,7 @@ print($message->sid);
     });
 
     // Semua rute dalam grup ini akan menggunakan middleware 'auth:sanctum'
-    Route::post('/add-to-wishlist/{product_name}', [WishlistController::class, 'addToWishlist']);
+    Route::post('/add-to-wishlist', [WishlistController::class, 'addToWishlist']);
 
     Route::get('/user', function (Request $request) {
         return $request->user();

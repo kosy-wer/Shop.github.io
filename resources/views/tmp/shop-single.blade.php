@@ -100,20 +100,19 @@
         <script>
 
 
-
 $(document).ready(function() {
-    const makeAjaxRequest = (url, successMessage, errorMessage) => {
+    const makeAjaxRequest = (url, data, successMessage, errorMessage) => {
         const token = localStorage.getItem('token');
-        const productName = encodeURIComponent('{{ $product->Product_Name }}');
 
         // Make an HTTP request using the token
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/${url}/${productName}`,
+            url: `http://localhost:8000/api/${url}`,
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
+            data: data, // Tambahkan data sebagai parameter
             success: function(response) {
                 alert(response.message || successMessage);
             },
@@ -127,19 +126,19 @@ $(document).ready(function() {
     // When the element with ID addToWishlist is clicked
     $('#addToWishlist').click(function(e) {
         e.preventDefault();
-        makeAjaxRequest('add-to-wishlist', 'Added to wishlist successfully', 'Error adding to wishlist. Please try again.');
+        let quantity = document.getElementById("quantity").value;
+        const productName = '{{ $product->Product_Name }}';
+        makeAjaxRequest('add-to-wishlist', { product_name: productName,quantity:quantity }, 'Added to wishlist successfully', 'Error adding to wishlist. Please try again.');
     });
 
     // When the element with ID buy is clicked
     $('#buy').click(function(e) {
         e.preventDefault();
-
-            let quantity = document.getElementById("quantity").value;
-        makeAjaxRequest(`buy/${quantity}`, 'Product purchased successfully', 'Error purchasing product. Please try again.');
+        let quantity = document.getElementById("quantity").value;
+        const productName = '{{ $product->Product_Name }}';
+        makeAjaxRequest('buy', { product_name: productName, quantity: quantity }, 'Product purchased successfully', 'Error purchasing product. Please try again.');
     });
 });
-
-
 
 
             let quantityInput = document.getElementById("quantity");

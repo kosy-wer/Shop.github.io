@@ -26,7 +26,7 @@
             <p class="lead fw-normal mb-2">{{ $productItem->Product_Name }} </p>
         </div>
         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-            <input style="height:50px;" id="form{{ $productItem->Product_ID }}" min="0" name="quantity" value="2" type="number" class="d-flex text-center form-control form-control-sm" />
+            <input style="height:50px;" id="form{{ $productItem->Product_ID }}" min="0" name="quantity" value="{{ $wishlistData->where('product_name', $productItem->Product_Name)->first()->quantity }}" type="number" class="d-flex text-center form-control form-control-sm" />
         </div>
         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" style="margin-top:5px;">
             <h5 class="mb-0">${{ $productItem->Price }}</h5>
