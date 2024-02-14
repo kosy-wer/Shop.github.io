@@ -34,8 +34,8 @@ $(document).ready(function () {
             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                 <ul class="list-unstyled">
                     <li> <a class="btn btn-success text-white mt-2" href="Product/${product.Product_Name}" >Go</a></li>
-                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                </ul>
+                <li><a class="btn btn-success text-white mt-2 addToWishlist" data-product-name="${product.Product_Name}" href="#"><i class="fas fa-cart-plus"></i></a></li>
+		</ul>
             </div>
         </div>
         <div class="card-body">
@@ -53,7 +53,35 @@ $(document).ready(function () {
 
 	    ); 
         });
+	$('.addToWishlist').on('click', function (event) {
+        event.preventDefault();
+        var productName = $(this).data('product-name');
+        makeAjaxRequest('add-to-wishlist', { product_name: productName, quantity: 1 }, 'Added to wishlist successfully', 'Error adding to wishlist. Please try again.');
+
+	});
     }
+
+    const makeAjaxRequest = (url, data, successMessage, errorMessage) => {
+    const token = localStorage.getItem('token');
+    // Make an HTTP request using the token
+    $.ajax({
+        type: 'POST',
+        url: `http://localhost:8000/api/${url}`,
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        data: data, // Tambahkan data sebagai parameter
+        success: function(response) {
+            alert(response.message || successMessage);
+        },
+        error: function(error) {
+            console.error(error);
+            alert(errorMessage);
+        },
+    });
+};
+
 
     function displayPagination(response) {
         var pagination = $('#paginationLinks');
