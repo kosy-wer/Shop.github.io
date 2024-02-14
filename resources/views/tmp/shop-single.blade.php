@@ -134,9 +134,15 @@ $(document).ready(function() {
     // When the element with ID buy is clicked
     $('#buy').click(function(e) {
         e.preventDefault();
+	let products = [];
         let quantity = document.getElementById("quantity").value;
         const productName = '{{ $product->Product_Name }}';
-        makeAjaxRequest('buy', { product_name: productName, quantity: quantity }, 'Product purchased successfully', 'Error purchasing product. Please try again.');
+        const price = '{{ $product->Price }}';
+	products.push({ product_name: productName, quantity: quantity, price: price });
+    
+        // Call makeAjaxRequest with the collected data
+        makeAjaxRequest('buy', { products: products }, 'Payment processed successfully', 'Error processing payment. Please try again.');
+
     });
 });
 
