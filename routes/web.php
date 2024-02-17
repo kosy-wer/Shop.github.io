@@ -20,9 +20,6 @@ use App\Models\Wishlist;
 
 
 
-Route::get('/', [HomeController::class, 'show']);
-Route::post('/', [HomeController::class, 'storePhoneNumber']);
-Route::post('/custom', [HomeController::class, 'sendCustomMessage']); 
 
 
 Route::middleware('auth')->group(function () {
@@ -78,4 +75,7 @@ Route::get('/P', function () {
 
 Route::post('/Register', [LoginController::class, 'authenticate']);
 Route::get('/login', function () {
-        return view('tmp.login');                                     })->name('login');
+	return view('tmp.login');                                     })->name('login');
+
+Route::get('/dasboard', function () {
+        return view('index');                                     })->name('admin');
