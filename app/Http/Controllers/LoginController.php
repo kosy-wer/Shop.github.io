@@ -35,11 +35,11 @@ Auth::login($user, $remember);
  if (!$existingToken || !$this->isTokenValid($existingToken)) {
     // Jika tidak ada token yang masih berlaku atau waktu kedaluwarsanya habis, buat token baru dengan waktu kedaluwarsa 1 jam dari sekarang
     $token = $user->createToken('token-' . $user->email, ['expires_in' => now()->addHour()])->plainTextToken;
-    return response()->json(['message' => $token]);
+    return response()->json(['token' => $token]);
 }
 
 // Token masih berlaku, Anda dapat melakukan tindakan lain jika diperlukan
-return response()->json(['message' => 'User already has a valid token']);   
+return response()->json(['message' => $existingToken . 'User already has a valid token']);   
     
     } else {
     return back()
