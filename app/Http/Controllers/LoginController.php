@@ -30,18 +30,16 @@ class LoginController extends Controller
                 });
 
     if (Hash::check($credentials['password'], $user->password)) {
-    Auth::login($user, $remember);
-    $existingToken = $user->tokens()->where('expires_at', '>', now())->first();
-
-if (!$existingToken) {
-    // Jika tidak ada token yang masih berlaku, buat token baru
-    $token = $user->createToken('token-name', ['expires_in' => 3600])->plainTextToken;
-    return response()->json(['token' => $token]);
-} else {
-    // Token masih berlaku, Anda dapat melakukan tindakan lain jika diperlukan
-    return response()->json(['message' => 'User already has a valid token']);
+Auth::login($user, $remember);
+  $existingToken = $user->tokens()->first();  
+ if (!$existingToken || !$this->isTokenValid($existingToken)) {
+    // Jika tidak ada token yang masih berlaku atau waktu kedaluwarsanya habis, buat token baru dengan waktu kedaluwarsa 1 jam dari sekarang
+    $token = $user->createToken('token-' . $user->email, ['expires_in' => now()->addHour()])->plainTextToken;
+    return response()->json(['message' => $token]);
 }
 
+// Token masih berlaku, Anda dapat melakukan tindakan lain jika diperlukan
+return response()->json(['message' => 'User already has a valid token']);   
     
     } else {
     return back()
@@ -51,5 +49,10 @@ if (!$existingToken) {
 
 }
 
+protected function isTokenValid($token)
+{
+    $abilities = $token->abilities;
 
+    return isset($abilities['expires_in']) && now()->lessThan($abilities['expires_in']);
+}
 }
