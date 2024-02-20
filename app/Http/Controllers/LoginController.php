@@ -6,9 +6,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
+use App\Services\TokenService;
 class LoginController extends Controller
 {
-
+	protected $tokenService;
+	public function __construct(TokenService $tokenService)
+    {
+        $this->tokenService = $tokenService;
+    }
 	public function authenticate(Request $request)
 {
 
@@ -31,12 +36,13 @@ class LoginController extends Controller
 
     if (Hash::check($credentials['password'], $user->password)) {
 Auth::login($user, $remember);
-  $existingToken = $user->tokens()->first();  
- if (!$existingToken || !$this->isTokenValid($existingToken)) {
-    // Jika tidak ada token yang masih berlaku atau waktu kedaluwarsanya habis, buat token baru dengan waktu kedaluwarsa 1 jam dari sekarang
+if ($this->tokenService->isTokenValid($user)) {
+
     $token = $user->createToken('token-' . $user->email, ['expires_in' => now()->addHour()])->plainTextToken;
+
     return response()->json(['token' => $token]);
 }
+
 
 // Token masih berlaku, Anda dapat melakukan tindakan lain jika diperlukan
 return response()->json(['message' => $existingToken . 'User already has a valid token']);   
@@ -47,12 +53,5 @@ return response()->json(['message' => $existingToken . 'User already has a valid
         ->withInput(['username' => $credentials['username'], 'remember' => $remember]);
 }
 
-}
-
-protected function isTokenValid($token)
-{
-    $abilities = $token->abilities;
-
-    return isset($abilities['expires_in']) && now()->lessThan($abilities['expires_in']);
 }
 }
